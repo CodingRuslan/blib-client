@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import ProductListItem from "../product-list-item";
 import { connect } from "react-redux";
-
+import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
 import { withBlibService } from "../hoc";
 import { fetchProducts } from "../../actions";
 import { compose } from "redux";
@@ -27,15 +28,13 @@ class ProductList extends Component {
       return <ErrorIndicator />;
     }
     return (
-      <ul style={{ minHeight: "550px" }}>
-        {products.map(product => {
-          return (
-            <li key={product.productId}>
-              <ProductListItem product={product} />
-            </li>
-          );
-        })}
-      </ul>
+      <Container className="cardGrid" maxWidth="md">
+        <Grid container spacing={4}>
+          {products.map(product => (
+            <ProductListItem key={product.productId} product={product} />
+          ))}
+        </Grid>
+      </Container>
     );
   }
 }

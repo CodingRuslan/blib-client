@@ -19,14 +19,50 @@ export default class BlibService {
 const products = [
   {
     productId: 1,
+    libId: 1,
     title: "Banana",
-    shortDiscription: "It's very tasty banana",
-    stars: 4.75
+    description: "It's very tasty banana",
+    price: 12,
+    stars: 4.75,
+    parent: "main",
+    tag1: "",
+    tag2: "",
+    tag3: ""
   },
   {
     productId: 2,
+    libId: 1,
     title: "Potato",
-    shortDiscription: "It's hole, not patato",
-    stars: 1.5
+    description: "It's very tasty banana",
+    price: 12,
+    stars: 4.75,
+    parent: "main",
+    tag1: "",
+    tag2: "",
+    tag3: ""
+  },
+  {
+    productId: 3,
+    libId: 1,
+    title: "Tomato",
+    description: "It's very tasty banana",
+    price: 12,
+    stars: 4.75,
+    parent: "main",
+    tag1: "",
+    tag2: "",
+    tag3: ""
+  },
+  {
+    productId: 4,
+    libId: 1,
+    title: "Tomato",
+    description: "It's very tasty banana",
+    price: 12,
+    stars: 4.75,
+    parent: "main",
+    tag1: "",
+    tag2: "",
+    tag3: ""
   }
 ];
