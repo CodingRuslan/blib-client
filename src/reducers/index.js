@@ -1,9 +1,26 @@
 const initialState = {
   isAuth: false,
+  loginName: "",
+  userId: "",
+  libId: "",
   products: [],
   loading: true,
   error: null,
   messageForModalWindow: ""
+};
+
+const checkAuth = state => {
+  const id = localStorage.getItem("userId");
+  const login = localStorage.getItem("loginName");
+  if (login && id) {
+    return {
+      ...state,
+      loginName: login,
+      userId: id,
+      isLoggedIn: true
+    };
+  }
+  return state;
 };
 
 const reducer = (state = initialState, action) => {
@@ -31,6 +48,53 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: action.payload
       };
+
+    case "POST_USER_CREATE":
+      return {
+        ...state,
+        messageForModalWindow: action.payload
+      };
+
+    case "POST_LOGIN_SUCCESS":
+      // localStorage.setItem("userId", action.payload[1]);
+      // localStorage.setItem("loginName", action.payload[0]);
+      return {
+        ...state,
+        loginName: action.payload[0],
+        userId: `${action.payload[1]}`,
+        libId: action.payload[2],
+        isLoggedIn: true,
+        messageForModalWindow: "Теперь вы можете сделать заказ",
+        loading: false,
+        error: null
+      };
+
+    case "CHECK_AUTHENTICATION_FROM_LOCAL_STORAGE":
+      return checkAuth(state);
+
+    case "POST_LOGIN_FAILURE":
+      return {
+        ...state,
+        loginName: "",
+        isLoggedIn: false,
+        loading: false,
+        error: action.payload
+      };
+
+    case "POST_LOGIN_WRONG":
+      return {
+        ...state,
+        messageForModalWindow: action.payload
+      };
+
+    case "FETCH_LOG_OUT":
+      localStorage.clear();
+      return {
+        ...state,
+        loginName: "",
+        isLoggedIn: false
+      };
+
     default:
       return state;
   }

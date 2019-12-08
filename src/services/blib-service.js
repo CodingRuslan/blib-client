@@ -14,6 +14,36 @@ export default class BlibService {
       console.error(error);
     }
   };
+
+  logIn = async (login, pass) => {
+    const res = await axios
+      .post(`${_apiBase}/login/`, {
+        login: login,
+        pass: pass
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
+
+  registration = async (login, pass) => {
+    const res = await axios
+      .post(`${_apiBase}/registration/`, {
+        login: login,
+        pass: pass
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
 }
 
 const products = [

@@ -43,8 +43,11 @@ export default function Header() {
           <Button color="inherit">Login</Button>
         </Link>
 
-        <Link to="/register" style={{ textDecoration: "none", color: "white" }}>
-          <Button color="inherit">Register</Button>
+        <Link
+          to="/registration"
+          style={{ textDecoration: "none", color: "white" }}
+        >
+          <Button color="inherit">Registration</Button>
         </Link>
       </Toolbar>
     </AppBar>
