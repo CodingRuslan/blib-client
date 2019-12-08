@@ -1,12 +1,35 @@
 const initialState = {
-  items: []
+  isAuth: false,
+  products: [],
+  loading: true,
+  error: null,
+  messageForModalWindow: ""
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "ITEMS_LOADED":
+    case "FETCH_PRODUCTS_REQUEST":
       return {
-        items: action.payload
+        ...state,
+        ingredients: [],
+        loading: true,
+        error: null
+      };
+
+    case "FETCH_PRODUCTS_SUCCESS":
+      return {
+        ...state,
+        products: action.payload,
+        loading: false,
+        error: null
+      };
+
+    case "FETCH_PRODUCTS_FAILURE":
+      return {
+        ...state,
+        products: [],
+        loading: false,
+        error: action.payload
       };
     default:
       return state;
