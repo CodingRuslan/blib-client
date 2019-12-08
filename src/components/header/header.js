@@ -42,6 +42,10 @@ export default function Header() {
         <Link to="/login" style={{ textDecoration: "none", color: "white" }}>
           <Button color="inherit">Login</Button>
         </Link>
+
+        <Link to="/register" style={{ textDecoration: "none", color: "white" }}>
+          <Button color="inherit">Register</Button>
+        </Link>
       </Toolbar>
     </AppBar>
   );

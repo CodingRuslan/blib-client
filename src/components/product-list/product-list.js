@@ -27,7 +27,7 @@ class ProductList extends Component {
       return <ErrorIndicator />;
     }
     return (
-      <ul>
+      <ul style={{ minHeight: "550px" }}>
         {products.map(product => {
           return (
             <li key={product.productId}>
