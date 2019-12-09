@@ -56,15 +56,15 @@ const reducer = (state = initialState, action) => {
       };
 
     case "POST_LOGIN_SUCCESS":
-      // localStorage.setItem("userId", action.payload[1]);
-      // localStorage.setItem("loginName", action.payload[0]);
+      localStorage.setItem("userId", action.payload[1]);
+      localStorage.setItem("loginName", action.payload[0]);
       return {
         ...state,
         loginName: action.payload[0],
         userId: `${action.payload[1]}`,
         libId: action.payload[2],
         isLoggedIn: true,
-        messageForModalWindow: "Теперь вы можете сделать заказ",
+        messageForModalWindow: "Теперь вы можете использовать свою библиотеку",
         loading: false,
         error: null
       };

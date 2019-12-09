@@ -48,9 +48,9 @@ const fetchLogin = (login, pass) => dispatch => {
   blibServise
     .logIn(login, pass)
     .then(e => {
-      if (e.data.login) {
+      if (e.data[0].username) {
         dispatch(
-          correctLogin(e.data.username, e.data.userid, e.data.libiduserside)
+          correctLogin(e.data[0].username, e.data[0].userid, e.data[0].libiduserside)
         );
       } else {
         dispatch(wrongLogin());
@@ -63,7 +63,7 @@ const fetchRegistration = (login, pass) => dispatch => {
   blibServise
     .registration(login, pass)
     .then(e => {
-      dispatch(registrationUser(e.data));
+      dispatch(registrationUser(e.data[0]));
     })
     .catch(err => dispatch(loginError(err)));
 };

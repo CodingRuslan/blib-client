@@ -2,4 +2,7 @@
   padding: 40px 0;
   margin-top: auto;
   background-color: #eeeeee;
+  width: 100%;
+  position: absolute;
+  top: 95%;
 }

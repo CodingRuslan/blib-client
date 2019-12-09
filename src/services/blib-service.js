@@ -15,10 +15,10 @@ export default class BlibService {
     }
   };
 
-  logIn = async (login, pass) => {
+  logIn = async (username, pass) => {
     const res = await axios
       .post(`${_apiBase}/login/`, {
-        login: login,
+        username: username,
         pass: pass
       })
       .then(function(response) {
@@ -28,12 +28,18 @@ export default class BlibService {
         console.log(error);
       });
     return res;
+    return [{
+      "userid": 7,
+      "username": "semen5",
+      "pass": "5",
+      "libiduserside": 259250
+    }]
   };
 
-  registration = async (login, pass) => {
+  registration = async (username, pass) => {
     const res = await axios
       .post(`${_apiBase}/registration/`, {
-        login: login,
+        username: username,
         pass: pass
       })
       .then(function(response) {
