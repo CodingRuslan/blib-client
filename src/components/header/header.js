@@ -33,6 +33,7 @@ const RegLogBar = () => (
 const LogOutBar = ({ logOut }) => (
     <IconButton
         // edge="start"
+        onClick={() => logOut()}
         className="logOutButton"
         color="inherit"
         aria-label="logout"

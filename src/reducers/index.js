@@ -1,5 +1,5 @@
 const initialState = {
-  isAuth: false,
+  isAuth: true,
   loginName: "",
   userId: "",
   libId: "",
@@ -17,7 +17,7 @@ const checkAuth = state => {
       ...state,
       loginName: login,
       userId: id,
-      isLoggedIn: true
+      isAuth: true
     };
   }
   return state;
@@ -63,7 +63,7 @@ const reducer = (state = initialState, action) => {
         loginName: action.payload[0],
         userId: `${action.payload[1]}`,
         libId: action.payload[2],
-        isLoggedIn: true,
+        isAuth: true,
         messageForModalWindow: "Теперь вы можете использовать свою библиотеку",
         loading: false,
         error: null
@@ -76,7 +76,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loginName: "",
-        isLoggedIn: false,
+        isAuth: false,
         loading: false,
         error: action.payload
       };
@@ -92,7 +92,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loginName: "",
-        isLoggedIn: false
+        isAuth: false
       };
 
     default:
