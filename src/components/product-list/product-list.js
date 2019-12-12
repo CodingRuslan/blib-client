@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 import { withBlibService } from "../hoc";
-import { fetchProducts } from "../../actions";
+import { fetchProducts, changeParentPage } from "../../actions";
 import { compose } from "redux";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
@@ -16,8 +16,9 @@ class ProductList extends Component {
   };
 
   componentDidMount() {
-    const { fetchProducts, currentParentPage } = this.props;
+    const { fetchProducts, currentParentPage, changeParentPage } = this.props;
     fetchProducts();
+    changeParentPage("main");
     this.setState({
       currentPage: currentParentPage
     });
@@ -71,5 +72,5 @@ const mapStateToProps = ({ products, loading, currentParentPage, error }) => ({
 
 export default compose(
   withBlibService(),
-  connect(mapStateToProps, { fetchProducts })
+  connect(mapStateToProps, { fetchProducts, changeParentPage })
 )(ProductList);
