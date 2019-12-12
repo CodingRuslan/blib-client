@@ -11,9 +11,26 @@ import ErrorIndicator from "../error-indicator";
 import "./product-list.css";
 
 class ProductList extends Component {
+  state = {
+    currentPage: ""
+  };
+
   componentDidMount() {
-    const { fetchProducts } = this.props;
+    const { fetchProducts, currentParentPage } = this.props;
     fetchProducts();
+    this.setState({
+      currentPage: currentParentPage
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate");
+    const { currentParentPage } = this.props;
+    if (prevProps !== this.props) {
+      this.setState({
+        currentPage: currentParentPage
+      });
+    }
   }
 
   render() {
@@ -30,18 +47,25 @@ class ProductList extends Component {
     return (
       <Container className="cardGrid" maxWidth="md">
         <Grid container spacing={4}>
-          {products.map(product => (
-            <ProductListItem key={product.productId} product={product} />
-          ))}
+          {products
+            .filter(product => {
+              if (product.parent === this.state.currentPage) {
+                return product;
+              }
+            })
+            .map(product => (
+              <ProductListItem key={product.productId} product={product} />
+            ))}
         </Grid>
       </Container>
     );
   }
 }
 
-const mapStateToProps = ({ products, loading, error }) => ({
+const mapStateToProps = ({ products, loading, currentParentPage, error }) => ({
   products,
   loading,
+  currentParentPage,
   error
 });
 

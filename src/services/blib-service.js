@@ -6,7 +6,7 @@ export default class BlibService {
   getProductsByLibId = async () => {
     // args: libId
     try {
-      // const response = await axios.get(`${_apiBase}/librares/${libId}`);
+      // const response = await axios.get(`${_apiBase}"/library/showone/${libId}`);
       // return response.data.map(this._transformIngredients);
 
       return products;
@@ -28,12 +28,14 @@ export default class BlibService {
         console.log(error);
       });
     return res;
-    return [{
-      "userid": 7,
-      "username": "semen5",
-      "pass": "5",
-      "libiduserside": 259250
-    }]
+    return [
+      {
+        userid: 7,
+        username: "semen5",
+        pass: "5",
+        libiduserside: 259250
+      }
+    ];
   };
 
   registration = async (username, pass) => {
@@ -61,6 +63,7 @@ const products = [
     price: 12,
     stars: 4.75,
     parent: "main",
+    fridge: true,
     tag1: "",
     tag2: "",
     tag3: ""
@@ -73,6 +76,7 @@ const products = [
     price: 12,
     stars: 4.75,
     parent: "main",
+    fridge: false,
     tag1: "",
     tag2: "",
     tag3: ""
@@ -85,6 +89,7 @@ const products = [
     price: 12,
     stars: 4.75,
     parent: "main",
+    fridge: false,
     tag1: "",
     tag2: "",
     tag3: ""
@@ -97,6 +102,20 @@ const products = [
     price: 12,
     stars: 4.75,
     parent: "main",
+    fridge: true,
+    tag1: "",
+    tag2: "",
+    tag3: ""
+  },
+  {
+    productId: 5,
+    libId: 1,
+    title: "yellow banana",
+    description: "It's very tasty banana",
+    price: 12,
+    stars: 4.75,
+    parent: "Banana",
+    fridge: true,
     tag1: "",
     tag2: "",
     tag3: ""

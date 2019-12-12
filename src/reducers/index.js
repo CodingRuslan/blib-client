@@ -1,12 +1,13 @@
 const initialState = {
-  isAuth: true,
+  isAuth: false,
   loginName: "",
   userId: "",
   libId: "",
   products: [],
   loading: true,
   error: null,
-  messageForModalWindow: ""
+  currentParentPage: "main"
+  // messageForModalWindow: ""
 };
 
 const checkAuth = state => {
@@ -93,6 +94,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         loginName: "",
         isAuth: false
+      };
+
+    case "CHANGE_CURRENT_PARENT_PAGE":
+      return {
+        ...state,
+        currentParentPage: action.payload
       };
 
     default:

@@ -2,6 +2,11 @@ import BlibService from "../services/blib-service";
 
 const blibServise = new BlibService();
 
+export const changeParentPage = currentPage => ({
+  type: "CHANGE_CURRENT_PARENT_PAGE",
+  payload: currentPage
+});
+
 const productsRequested = () => ({
   type: "FETCH_PRODUCTS_REQUEST"
 });
@@ -50,7 +55,11 @@ const fetchLogin = (login, pass) => dispatch => {
     .then(e => {
       if (e.data[0].username) {
         dispatch(
-          correctLogin(e.data[0].username, e.data[0].userid, e.data[0].libiduserside)
+          correctLogin(
+            e.data[0].username,
+            e.data[0].userid,
+            e.data[0].libiduserside
+          )
         );
       } else {
         dispatch(wrongLogin());

@@ -7,9 +7,13 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import EditForm from "../edit-form";
+import { connect } from "react-redux";
+import { withBlibService } from "../hoc";
+import { changeParentPage } from "../../actions";
+import { compose } from "redux";
 import "./product-list-item.css";
 
-export default class ProductListItem extends Component {
+class ProductListItem extends Component {
   constructor(props) {
     super(props);
 
@@ -32,8 +36,8 @@ export default class ProductListItem extends Component {
   };
 
   render() {
-    const { product } = this.props;
-    const { title, description, price } = product; // productId, libId,title,description, price,stars,parent, tag1,tag2, tag3
+    const { product, changeParentPage } = this.props;
+    const { title, description, price, parent } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
 
     return (
       <>
@@ -62,7 +66,11 @@ export default class ProductListItem extends Component {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" color="primary">
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => changeParentPage(title)}
+              >
                 View
               </Button>
               <Button
@@ -79,3 +87,12 @@ export default class ProductListItem extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ currentParentPage }) => ({
+  currentParentPage
+});
+
+export default compose(
+  withBlibService(),
+  connect(mapStateToProps, { changeParentPage })
+)(ProductListItem);
