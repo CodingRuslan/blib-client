@@ -44,7 +44,7 @@ class ProductListItem extends Component {
   };
 
   render() {
-    const { product, changeParentPage } = this.props;
+    const { product, changeParentPage, removeProductFromLib } = this.props;
     const {
       title,
       description,
@@ -108,7 +108,7 @@ class ProductListItem extends Component {
                 className="btn-delete"
                 size="small"
                 style={{ marginLeft: "35%" }}
-                onClick={removeProductFromLib(productId, libId)}
+                onClick={() => removeProductFromLib(productId, libId)}
               >
                 <DeleteIcon />
               </IconButton>

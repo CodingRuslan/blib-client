@@ -55,7 +55,8 @@ class ProductList extends Component {
       loading,
       error,
       changeParentPage,
-      currentParentPage
+      currentParentPage,
+      addProductToLib
     } = this.props;
 
     if (loading) {
