@@ -19,6 +19,7 @@ const checkAuth = state => {
       ...state,
       loginName: login,
       userId: id,
+      libId: libId,
       isAuth: true
     };
   }
