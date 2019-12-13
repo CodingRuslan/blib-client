@@ -1,14 +1,43 @@
 import React, { Component } from "react";
 import Modal from "@material-ui/core/Modal";
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Rating from "@material-ui/lab/Rating";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import "./edit-form.css";
+import { Button } from "@material-ui/core";
+import { changeProductDispatch } from "../../actions";
+import { connect } from "react-redux";
+import { withBlibService } from "../hoc";
+import { compose } from "redux";
 
-export default class EditForm extends Component {
+class EditForm extends Component {
   state = {
-    open: false
+    open: false,
+    title: "",
+    description: "",
+    price: "",
+    fridge: false,
+    stars: 0
   };
 
+  componentDidMount() {
+    const { product } = this.props;
+    this.setState({
+      ...this.state,
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      fridge: product.fridge,
+      stars: product.stars
+    });
+  }
+
   render() {
-    const { open, handleClose } = this.props;
+    const { open, handleClose, changeProductDispatch, product } = this.props;
+    const { productid, parent } = product;
     return (
       <div>
         <Modal
@@ -18,13 +47,78 @@ export default class EditForm extends Component {
           onClose={handleClose}
         >
           <div className="paper">
-            <h2 id="simple-modal-title">Text in a modal</h2>
-            <p id="simple-modal-description">
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            </p>
+            <h2 id="simple-modal-title">Edit product {"title"}</h2>
+            <TextField
+              id="outlined-basic"
+              label="title"
+              variant="outlined"
+              value={this.state.title}
+              multiline
+              onChange={e => this.setState({ title: e.target.value })}
+            />
+            <TextField
+              id="outlined-basic"
+              label="description"
+              variant="outlined"
+              value={this.state.description}
+              multiline
+              onChange={e => this.setState({ description: e.target.value })}
+            />
+            <TextField
+              id="price"
+              type="number"
+              label="price"
+              value={this.state.price}
+              onChange={e => this.setState({ price: e.target.value })}
+            />
+            <Box component="fieldset" borderColor="transparent">
+              <Typography component="legend">Rating</Typography>
+              <Rating
+                name="simple-controlled"
+                value={this.state.stars}
+                onChange={(event, newValue) => {
+                  this.setState({ ...this.state, stars: newValue });
+                }}
+              />
+            </Box>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.fridge}
+                  onChange={() => {
+                    this.setState({
+                      ...this.state,
+                      fridge: !this.state.fridge
+                    });
+                  }}
+                  color="primary"
+                />
+              }
+              label="Frige"
+            />
+            <Button
+              onClick={() => {
+                changeProductDispatch(
+                  productid,
+                  this.state.title,
+                  this.state.description,
+                  this.state.price,
+                  this.state.stars,
+                  parent,
+                  this.state.fridge
+                );
+              }}
+            >
+              Submit changes
+            </Button>
           </div>
         </Modal>
       </div>
     );
   }
 }
+
+export default compose(
+  withBlibService(),
+  connect({}, { changeProductDispatch })
+)(EditForm);

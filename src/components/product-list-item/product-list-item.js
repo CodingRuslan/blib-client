@@ -5,7 +5,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
+import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 import EditForm from "../edit-form";
 import { connect } from "react-redux";
 import { withBlibService } from "../hoc";
@@ -37,13 +39,14 @@ class ProductListItem extends Component {
 
   render() {
     const { product, changeParentPage } = this.props;
-    const { title, description, price, parent, fridge, stars } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
+    const { title, description, price, fridge, stars } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
 
     return (
       <>
         <EditForm
           open={this.state.openEditWindow}
           handleClose={this.handleEditClose}
+          product={product}
         />
         <Grid item xs={12} sm={6} md={4}>
           <Card className="card">
@@ -56,6 +59,13 @@ class ProductListItem extends Component {
               <Typography gutterBottom variant="h5" component="h2">
                 {title}
               </Typography>
+              {!!stars ? (
+                <Box borderColor="transparent">
+                  <Rating name="read-only" value={stars} readOnly />
+                </Box>
+              ) : (
+                ""
+              )}
               <Typography>
                 {description.length > 0 ? "Description: " + description : ""}
               </Typography>
@@ -63,7 +73,6 @@ class ProductListItem extends Component {
                 {fridge.length > 0 ? "Fridge: " + fridge : ""}
               </Typography>
               <Typography>{!!price ? "Price: " + price : ""}</Typography>
-              <Typography>{!!stars ? "Rate: " + stars : ""}</Typography>
             </CardContent>
             <CardActions>
               <Button

@@ -104,6 +104,12 @@ const reducer = (state = initialState, action) => {
         currentParentPage: action.payload
       };
 
+    case "CHANGE_PRODUCT":
+      return {
+        ...state,
+        messageForModalWindow: "product changed"
+      };
+
     default:
       return state;
   }

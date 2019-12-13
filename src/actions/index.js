@@ -7,6 +7,10 @@ export const changeParentPage = currentPage => ({
   payload: currentPage
 });
 
+const changeProduct = () => ({
+  type: "CHANGE_PRODUCT"
+});
+
 const productsRequested = () => ({
   type: "FETCH_PRODUCTS_REQUEST"
 });
@@ -77,6 +81,23 @@ const fetchRegistration = (login, pass) => dispatch => {
     .catch(err => dispatch(loginError(err)));
 };
 
+const changeProductDispatch = (
+  productid,
+  title,
+  description,
+  price,
+  stars,
+  parent,
+  fridge
+) => dispatch => {
+  blibServise
+    .changeProduct(productid, title, description, price, stars, parent, fridge)
+    .then(e => {
+      dispatch(changeProduct());
+    })
+    .catch(err => dispatch(loginError(err)));
+};
+
 const fetchProducts = libId => dispatch => {
   dispatch(productsRequested());
   blibServise
@@ -85,4 +106,4 @@ const fetchProducts = libId => dispatch => {
     .catch(err => dispatch(productsError(err)));
 };
 
-export { fetchProducts, fetchLogin, fetchRegistration };
+export { fetchProducts, fetchLogin, fetchRegistration, changeProductDispatch };

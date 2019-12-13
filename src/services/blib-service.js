@@ -52,6 +52,37 @@ export default class BlibService {
       });
     return res;
   };
+
+  changeProduct = async (
+    productid,
+    title,
+    description,
+    price,
+    stars,
+    parent,
+    fridge
+  ) => {
+    const res = await axios
+      .post(`${_apiBase}/product/edit`, {
+        productid: productid,
+        title: title,
+        description: description,
+        price: price,
+        stars: stars,
+        parent: parent,
+        tag1: "",
+        tag2: "",
+        tag3: "",
+        fridge: fridge
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
 }
 
 const products = [
