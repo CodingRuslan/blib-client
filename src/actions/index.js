@@ -126,7 +126,7 @@ const addProductToLib = (libId, parent) => dispatch => {
   dispatch(addProductRequest());
   blibServise
     .addProductToLib(libId, parent)
-    .then(e => dispatch(productsAdded(e)))
+    .then(e => dispatch(productsAdded()))
     .catch(err => dispatch(productsError(err)));
   blibServise
     .getProductsByLibId(libId)
@@ -138,7 +138,7 @@ const removeProductFromLib = (productId, libId) => dispatch => {
   dispatch(removeProductRequest());
   blibServise
     .removeProductfromLib(productId)
-    .then(e => dispatch(productRemoved(e)))
+    .then(e => dispatch(productRemoved()))
     .catch(err => dispatch(productsError(err)));
   blibServise
     .getProductsByLibId(libId)
