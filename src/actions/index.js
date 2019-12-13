@@ -112,6 +112,7 @@ const changeProductDispatch = (
       dispatch(changeProduct());
     })
     .catch(err => dispatch(loginError(err)));
+  fetchProducts();
 };
 
 const fetchProducts = libId => dispatch => {
@@ -128,6 +129,7 @@ const addProductToLib = (libId, parent) => dispatch => {
     .addProductToLib(libId, parent)
     .then(e => dispatch(productsAdded()))
     .catch(err => dispatch(productsError(err)));
+  fetchProducts();
 };
 
 const removeProductFromLib = (productId, libId) => dispatch => {
@@ -136,6 +138,7 @@ const removeProductFromLib = (productId, libId) => dispatch => {
     .removeProductfromLib(productId)
     .then(e => dispatch(productRemoved()))
     .catch(err => dispatch(productsError(err)));
+  fetchProducts();
 };
 
 export {

@@ -39,13 +39,12 @@ class ProductList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { fetchProducts, currentParentPage } = this.props;
+    const { currentParentPage } = this.props;
     if (prevProps !== this.props) {
       this.setState({
         currentPage: currentParentPage,
         prevPage: prevProps.currentParentPage
       });
-      fetchProducts(libId);
     }
   }
 
