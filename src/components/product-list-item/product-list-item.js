@@ -7,11 +7,17 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Box from "@material-ui/core/Box";
 import EditForm from "../edit-form";
 import { connect } from "react-redux";
 import { withBlibService } from "../hoc";
-import { changeParentPage } from "../../actions";
+import {
+  changeParentPage,
+  fetchProducts,
+  removeProductFromLib
+} from "../../actions";
 import { compose } from "redux";
 import "./product-list-item.css";
 
@@ -39,7 +45,15 @@ class ProductListItem extends Component {
 
   render() {
     const { product, changeParentPage } = this.props;
-    const { title, description, price, fridge, stars } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
+    const {
+      title,
+      description,
+      price,
+      fridge,
+      stars,
+      productId,
+      libId
+    } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
 
     return (
       <>
@@ -89,6 +103,15 @@ class ProductListItem extends Component {
               >
                 Edit
               </Button>
+              <IconButton
+                aria-label="delete"
+                className="btn-delete"
+                size="small"
+                style={{ marginLeft: "35%" }}
+                onClick={removeProductFromLib(productId, libId)}
+              >
+                <DeleteIcon />
+              </IconButton>
             </CardActions>
           </Card>
         </Grid>
@@ -103,5 +126,8 @@ const mapStateToProps = ({ currentParentPage }) => ({
 
 export default compose(
   withBlibService(),
-  connect(mapStateToProps, { changeParentPage })
+  connect(mapStateToProps, {
+    changeParentPage,
+    removeProductFromLib
+  })
 )(ProductListItem);

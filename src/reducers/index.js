@@ -1,13 +1,13 @@
 const initialState = {
-  isAuth: true,
+  isAuth: false,
   loginName: "",
   userId: "",
   libId: "",
   products: [],
   loading: true,
   error: null,
-  currentParentPage: "main"
-  // messageForModalWindow: ""
+  currentParentPage: "main",
+  messageForModalWindow: ""
 };
 
 const checkAuth = state => {
@@ -97,6 +97,30 @@ const reducer = (state = initialState, action) => {
         ...state,
         loginName: "",
         isAuth: false
+      };
+
+    case "ADD_PRODUCTS_REQUEST":
+      return {
+        ...state,
+        loading: true
+      };
+
+    case "ADD_PRODUCTS_SUCCESS":
+      return {
+        ...state,
+        loading: false
+      };
+
+    case "REMOVE_PRODUCT_REQUEST":
+      return {
+        ...state,
+        loading: true
+      };
+
+    case "ADD_PRODUCT_SUCCESS":
+      return {
+        ...state,
+        loading: false
       };
 
     case "CHANGE_CURRENT_PARENT_PAGE":

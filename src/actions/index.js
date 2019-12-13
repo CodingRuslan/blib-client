@@ -53,6 +53,22 @@ const loginError = error => ({
   payload: error
 });
 
+const addProductRequest = () => ({
+  type: "ADD_PRODUCTS_REQUEST"
+});
+
+const productsAdded = () => ({
+  type: "ADD_PRODUCTS_SUCCESS"
+});
+
+const removeProductRequest = () => ({
+  type: "REMOVE_PRODUCT_REQUEST"
+});
+
+const productRemoved = () => ({
+  type: "REMOVE_PRODUCT_SUCCESS"
+});
+
 const fetchLogin = (login, pass) => dispatch => {
   blibServise
     .logIn(login, pass)
@@ -106,4 +122,35 @@ const fetchProducts = libId => dispatch => {
     .catch(err => dispatch(productsError(err)));
 };
 
-export { fetchProducts, fetchLogin, fetchRegistration, changeProductDispatch };
+const addProductToLib = (libId, parent) => dispatch => {
+  dispatch(addProductRequest());
+  blibServise
+    .addProductToLib(libId, parent)
+    .then(e => dispatch(productsAdded(e)))
+    .catch(err => dispatch(productsError(err)));
+  blibServise
+    .getProductsByLibId(libId)
+    .then(e => dispatch(productsLoaded(e)))
+    .catch(err => dispatch(productsError(err)));
+};
+
+const removeProductFromLib = (productId, libId) => dispatch => {
+  dispatch(removeProductRequest());
+  blibServise
+    .removeProductfromLib(productId)
+    .then(e => dispatch(productRemoved(e)))
+    .catch(err => dispatch(productsError(err)));
+  blibServise
+    .getProductsByLibId(libId)
+    .then(e => dispatch(productsLoaded(e)))
+    .catch(err => dispatch(productsError(err)));
+};
+
+export {
+  fetchProducts,
+  fetchLogin,
+  fetchRegistration,
+  changeProductDispatch,
+  addProductToLib,
+  removeProductFromLib
+};

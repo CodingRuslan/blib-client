@@ -47,7 +47,7 @@ class EditForm extends Component {
           onClose={handleClose}
         >
           <div className="paper">
-            <h2 id="simple-modal-title">Edit product {"title"}</h2>
+            <h2 id="simple-modal-title">Edit product {this.state.title}</h2>
             <TextField
               id="outlined-basic"
               label="title"
@@ -118,11 +118,7 @@ class EditForm extends Component {
   }
 }
 
-const mapStateToProps = ({ currentParentPage }) => ({
-  currentParentPage
-});
-
 export default compose(
   withBlibService(),
-  connect(mapStateToProps, { changeProductDispatch })
+  connect(null, { changeProductDispatch })
 )(EditForm);

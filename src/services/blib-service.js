@@ -53,27 +53,40 @@ export default class BlibService {
     return res;
   };
 
-  changeProduct = async (
-    productid,
-    title,
-    description,
-    price,
-    stars,
-    parent,
-    fridge
-  ) => {
+  registration = async (username, pass) => {
     const res = await axios
-      .post(`${_apiBase}/product/edit`, {
-        productid: productid,
-        title: title,
-        description: description,
-        price: price,
-        stars: stars,
-        parent: parent,
-        tag1: "",
-        tag2: "",
-        tag3: "",
-        fridge: fridge
+      .post(`${_apiBase}/registration/`, {
+        username: username,
+        pass: pass
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
+
+  addProductToLib = async (libId, parent) => {
+    const res = await axios
+      .post(`${_apiBase}/library/parentadd`, {
+        libid: libId,
+        parent: parent
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
+
+  removeProductfromLib = async productId => {
+    const res = await axios
+      .post(`${_apiBase}/product/delete`, {
+        productid: productId
       })
       .then(function(response) {
         return response;

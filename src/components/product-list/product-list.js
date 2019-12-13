@@ -4,8 +4,15 @@ import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 import { withBlibService } from "../hoc";
-import { fetchProducts, changeParentPage } from "../../actions";
+import {
+  fetchProducts,
+  changeParentPage,
+  addProductToLib
+} from "../../actions";
 import { compose } from "redux";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
@@ -42,7 +49,14 @@ class ProductList extends Component {
   }
 
   render() {
-    const { products, loading, error, changeParentPage } = this.props;
+    const {
+      products,
+      libId,
+      loading,
+      error,
+      changeParentPage,
+      currentParentPage
+    } = this.props;
 
     if (loading) {
       return <Spinner />;
@@ -60,8 +74,23 @@ class ProductList extends Component {
         >
           Back
         </Button>
+
         <Container className="cardGrid" maxWidth="md">
           <Grid container spacing={4}>
+            <Grid item xs={12} sm={6} md={4}>
+              <Tooltip
+                title="Add"
+                aria-label="add"
+                style={{ margin: "116px" }}
+                onClick={() => {
+                  addProductToLib(libId, currentParentPage);
+                }}
+              >
+                <Fab color="primary">
+                  <AddIcon />
+                </Fab>
+              </Tooltip>
+            </Grid>
             {products
               .filter(product => {
                 if (product.parent === this.state.currentPage) {
@@ -94,5 +123,5 @@ const mapStateToProps = ({
 
 export default compose(
   withBlibService(),
-  connect(mapStateToProps, { fetchProducts, changeParentPage })
+  connect(mapStateToProps, { fetchProducts, changeParentPage, addProductToLib })
 )(ProductList);
