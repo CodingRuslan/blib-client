@@ -26,7 +26,10 @@ class LoginForm extends Component {
   };
 
   render() {
-    const { variant } = this.props;
+    const { variant, isAuth } = this.props;
+    if (isAuth) {
+      return <Redirect to="/" />;
+    }
     return (
       <Container component="main" style={{ minHeight: "500px" }} maxWidth="xs">
         <CssBaseline />
