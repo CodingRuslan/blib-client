@@ -71,7 +71,7 @@ class ProductListItem extends Component {
             />
             <CardContent className="cardContent">
               <Typography gutterBottom variant="h5" component="h2">
-                {title}
+                {!!title ? title : ""}
               </Typography>
               {!!stars ? (
                 <Box borderColor="transparent">
@@ -81,11 +81,9 @@ class ProductListItem extends Component {
                 ""
               )}
               <Typography>
-                {description.length > 0 ? "Description: " + description : ""}
+                {!!description ? "Description: " + description : ""}
               </Typography>
-              <Typography>
-                {fridge.length > 0 ? "Fridge: " + fridge : ""}
-              </Typography>
+              <Typography>{!!fridge ? "Fridge: " + fridge : ""}</Typography>
               <Typography>{!!price ? "Price: " + price : ""}</Typography>
             </CardContent>
             <CardActions>
