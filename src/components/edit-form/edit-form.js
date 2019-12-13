@@ -118,7 +118,11 @@ class EditForm extends Component {
   }
 }
 
+const mapStateToProps = ({ currentParentPage }) => ({
+  currentParentPage
+});
+
 export default compose(
   withBlibService(),
-  connect({}, { changeProductDispatch })
+  connect(mapStateToProps, { changeProductDispatch })
 )(EditForm);
