@@ -37,7 +37,7 @@ class ProductListItem extends Component {
 
   render() {
     const { product, changeParentPage } = this.props;
-    const { title, description, price, parent } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
+    const { title, description, price, parent, fridge, stars } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
 
     return (
       <>
@@ -57,13 +57,13 @@ class ProductListItem extends Component {
                 {title}
               </Typography>
               <Typography>
-                <i>Description: </i>
-                {description}
+                {description.length > 0 ? "Description: " + description : ""}
               </Typography>
               <Typography>
-                <i>Price: </i>
-                {price}
+                {fridge.length > 0 ? "Fridge: " + fridge : ""}
               </Typography>
+              <Typography>{!!price ? "Price: " + price : ""}</Typography>
+              <Typography>{!!stars ? "Rate: " + stars : ""}</Typography>
             </CardContent>
             <CardActions>
               <Button

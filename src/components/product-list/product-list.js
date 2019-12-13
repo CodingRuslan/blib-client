@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ProductListItem from "../product-list-item";
 import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { withBlibService } from "../hoc";
 import { fetchProducts, changeParentPage } from "../../actions";
@@ -12,7 +13,8 @@ import "./product-list.css";
 
 class ProductList extends Component {
   state = {
-    currentPage: ""
+    currentPage: "",
+    prevPage: ""
   };
 
   componentDidMount() {
@@ -30,18 +32,17 @@ class ProductList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate");
     const { currentParentPage } = this.props;
     if (prevProps !== this.props) {
       this.setState({
-        currentPage: currentParentPage
+        currentPage: currentParentPage,
+        prevPage: prevProps.currentParentPage
       });
     }
   }
 
   render() {
-    const { products, loading, error } = this.props;
-    console.log(products);
+    const { products, loading, error, changeParentPage } = this.props;
 
     if (loading) {
       return <Spinner />;
@@ -51,19 +52,28 @@ class ProductList extends Component {
       return <ErrorIndicator />;
     }
     return (
-      <Container className="cardGrid" maxWidth="md">
-        <Grid container spacing={4}>
-          {products
-            .filter(product => {
-              if (product.parent === this.state.currentPage) {
-                return product;
-              }
-            })
-            .map(product => (
-              <ProductListItem key={product.productId} product={product} />
-            ))}
-        </Grid>
-      </Container>
+      <>
+        <Button
+          className="btn-back"
+          style={{ position: "absolute" }}
+          onClick={() => changeParentPage(this.state.prevPage)}
+        >
+          Back
+        </Button>
+        <Container className="cardGrid" maxWidth="md">
+          <Grid container spacing={4}>
+            {products
+              .filter(product => {
+                if (product.parent === this.state.currentPage) {
+                  return product;
+                }
+              })
+              .map(product => (
+                <ProductListItem key={product.productId} product={product} />
+              ))}
+          </Grid>
+        </Container>
+      </>
     );
   }
 }

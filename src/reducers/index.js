@@ -13,6 +13,7 @@ const initialState = {
 const checkAuth = state => {
   const id = localStorage.getItem("userId");
   const login = localStorage.getItem("loginName");
+  const libId = localStorage.getItem("libId");
   if (login && id) {
     return {
       ...state,
@@ -59,6 +60,7 @@ const reducer = (state = initialState, action) => {
     case "POST_LOGIN_SUCCESS":
       localStorage.setItem("userId", action.payload[1]);
       localStorage.setItem("loginName", action.payload[0]);
+      localStorage.setItem("libId", action.payload[2]);
       return {
         ...state,
         loginName: action.payload[0],
