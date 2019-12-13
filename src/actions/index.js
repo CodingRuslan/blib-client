@@ -140,10 +140,6 @@ const removeProductFromLib = (productId, libId) => dispatch => {
     .removeProductfromLib(productId)
     .then(e => dispatch(productRemoved(e)))
     .catch(err => dispatch(productsError(err)));
-  blibServise
-    .getProductsByLibId(libId)
-    .then(e => dispatch(productsLoaded(e)))
-    .catch(err => dispatch(productsError(err)));
 };
 
 export {
