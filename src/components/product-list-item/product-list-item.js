@@ -51,8 +51,8 @@ class ProductListItem extends Component {
       price,
       fridge,
       stars,
-      productId,
-      libId
+      productid,
+      libid
     } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
 
     return (
@@ -106,7 +106,7 @@ class ProductListItem extends Component {
                 className="btn-delete"
                 size="small"
                 style={{ marginLeft: "35%" }}
-                onClick={() => removeProductFromLib(productId, libId)}
+                onClick={() => removeProductFromLib(productid, libid)}
               >
                 <DeleteIcon />
               </IconButton>
