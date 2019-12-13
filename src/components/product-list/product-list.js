@@ -16,8 +16,13 @@ class ProductList extends Component {
   };
 
   componentDidMount() {
-    const { fetchProducts, currentParentPage, changeParentPage } = this.props;
-    fetchProducts();
+    const {
+      fetchProducts,
+      currentParentPage,
+      changeParentPage,
+      libId
+    } = this.props;
+    fetchProducts(libId);
     changeParentPage("main");
     this.setState({
       currentPage: currentParentPage
@@ -63,8 +68,15 @@ class ProductList extends Component {
   }
 }
 
-const mapStateToProps = ({ products, loading, currentParentPage, error }) => ({
+const mapStateToProps = ({
   products,
+  loading,
+  currentParentPage,
+  libId,
+  error
+}) => ({
+  products,
+  libId,
   loading,
   currentParentPage,
   error

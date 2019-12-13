@@ -3,11 +3,11 @@ const axios = require("axios");
 const _apiBase = "http://localhost:8080";
 
 export default class BlibService {
-  getProductsByLibId = async () => {
+  getProductsByLibId = async libId => {
     // args: libId
     try {
       // const response = await axios.get(`${_apiBase}"/library/showone/${libId}`);
-      // return response.data.map(this._transformIngredients);
+      // return response.data
 
       return products;
     } catch (error) {

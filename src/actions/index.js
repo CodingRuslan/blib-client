@@ -77,10 +77,10 @@ const fetchRegistration = (login, pass) => dispatch => {
     .catch(err => dispatch(loginError(err)));
 };
 
-const fetchProducts = () => dispatch => {
+const fetchProducts = libId => dispatch => {
   dispatch(productsRequested());
   blibServise
-    .getProductsByLibId()
+    .getProductsByLibId(libId)
     .then(e => dispatch(productsLoaded(e)))
     .catch(err => dispatch(productsError(err)));
 };
