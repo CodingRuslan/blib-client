@@ -6,8 +6,8 @@ export default class BlibService {
   getProductsByLibId = async libId => {
     // args: libId
     try {
-      // const response = await axios.get(`${_apiBase}/library/showone/${libId}`);
-      // return response.data
+      const response = await axios.get(`${_apiBase}/library/showone/${libId}`);
+      return response.data;
 
       return products;
     } catch (error) {

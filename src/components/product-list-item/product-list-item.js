@@ -26,8 +26,21 @@ class ProductListItem extends Component {
     super(props);
 
     this.state = {
-      openEditWindow: false
+      openEditWindow: false,
+      shouldUpdate: false
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { fetchProducts, libId } = this.props;
+    if (this.state.shouldUpdate) {
+      this.setState({ ...this.state, shouldUpdate: false });
+      let timerId = setInterval(() => fetchProducts(libId), 1000);
+
+      setTimeout(() => {
+        clearInterval(timerId);
+      }, 1100);
+    }
   }
 
   handleEditOpen = () => {
@@ -44,7 +57,12 @@ class ProductListItem extends Component {
   };
 
   render() {
-    const { product, changeParentPage, removeProductFromLib } = this.props;
+    const {
+      product,
+      changeParentPage,
+      removeProductFromLib,
+      fetchProducts
+    } = this.props;
     const {
       title,
       description,
@@ -61,6 +79,8 @@ class ProductListItem extends Component {
           open={this.state.openEditWindow}
           handleClose={this.handleEditClose}
           product={product}
+          fetchProducts={fetchProducts}
+          libId={libid}
         />
         <Grid item xs={12} sm={6} md={4}>
           <Card className="card">
@@ -106,7 +126,10 @@ class ProductListItem extends Component {
                 className="btn-delete"
                 size="small"
                 style={{ marginLeft: "35%" }}
-                onClick={() => removeProductFromLib(productid, libid)}
+                onClick={() => {
+                  removeProductFromLib(productid, libid);
+                  this.setState({ shouldUpdate: true });
+                }}
               >
                 <DeleteIcon />
               </IconButton>
@@ -126,6 +149,7 @@ export default compose(
   withBlibService(),
   connect(mapStateToProps, {
     changeParentPage,
-    removeProductFromLib
+    removeProductFromLib,
+    fetchProducts
   })
 )(ProductListItem);

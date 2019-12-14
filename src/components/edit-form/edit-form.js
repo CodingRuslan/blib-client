@@ -20,7 +20,8 @@ class EditForm extends Component {
     description: "",
     price: "",
     fridge: false,
-    stars: 0
+    stars: 0,
+    shouldUpdate: false
   };
 
   componentDidMount() {
@@ -33,6 +34,18 @@ class EditForm extends Component {
       fridge: product.fridge,
       stars: product.stars
     });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { fetchProducts, libId } = this.props;
+    if (this.state.shouldUpdate) {
+      this.setState({ ...this.state, shouldUpdate: false });
+      let timerId = setInterval(() => fetchProducts(libId), 1000);
+
+      setTimeout(() => {
+        clearInterval(timerId);
+      }, 1100);
+    }
   }
 
   render() {
@@ -107,6 +120,7 @@ class EditForm extends Component {
                   parent,
                   this.state.fridge
                 );
+                this.setState({ shouldUpdate: true });
               }}
             >
               Submit changes

@@ -21,7 +21,8 @@ import "./product-list.css";
 class ProductList extends Component {
   state = {
     currentPage: "",
-    prevPage: ""
+    prevPage: "",
+    shouldUpdate: false
   };
 
   componentDidMount() {
@@ -39,12 +40,20 @@ class ProductList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { currentParentPage } = this.props;
+    const { currentParentPage, fetchProducts, libId } = this.props;
     if (prevProps !== this.props) {
       this.setState({
         currentPage: currentParentPage,
         prevPage: prevProps.currentParentPage
       });
+    }
+    if (this.state.shouldUpdate) {
+      this.setState({ ...this.state, shouldUpdate: false });
+      let timerId = setInterval(() => fetchProducts(libId), 1000);
+
+      setTimeout(() => {
+        clearInterval(timerId);
+      }, 1100);
     }
   }
 
@@ -85,6 +94,7 @@ class ProductList extends Component {
                 style={{ margin: "116px" }}
                 onClick={() => {
                   addProductToLib(libId, currentParentPage);
+                  this.setState({ shouldUpdate: true });
                 }}
               >
                 <Fab color="primary">
@@ -99,7 +109,12 @@ class ProductList extends Component {
                 }
               })
               .map(product => (
-                <ProductListItem key={product.productId} product={product} />
+                <ProductListItem
+                  key={product.productId}
+                  product={product}
+                  libId={libId}
+                  // shouldUpdate={this.state.shouldUpdate}
+                />
               ))}
           </Grid>
         </Container>

@@ -108,9 +108,7 @@ const reducer = (state = initialState, action) => {
     case "ADD_PRODUCTS_SUCCESS":
       return {
         ...state,
-        products: action.payload,
-        loading: false,
-        error: null
+        loading: false
       };
 
     case "REMOVE_PRODUCT_REQUEST":
@@ -119,12 +117,10 @@ const reducer = (state = initialState, action) => {
         loading: true
       };
 
-    case "ADD_PRODUCT_SUCCESS":
+    case "REMOVE_PRODUCT_SUCCESS":
       return {
         ...state,
-        products: action.payload,
-        loading: false,
-        error: null
+        loading: false
       };
 
     case "CHANGE_CURRENT_PARENT_PAGE":
