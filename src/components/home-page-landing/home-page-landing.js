@@ -1,16 +1,14 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
@@ -49,14 +47,6 @@ export default function HomePageLanding() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <CameraIcon className={classes.icon} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main>
         {/* Hero unit */}
         <div className={classes.heroContent}>
@@ -68,7 +58,7 @@ export default function HomePageLanding() {
               color="textPrimary"
               gutterBottom
             >
-              Album layout
+              All librarys layout
             </Typography>
             <Typography
               variant="h5"
@@ -76,21 +66,19 @@ export default function HomePageLanding() {
               color="textSecondary"
               paragraph
             >
-              Something short and leading about the collection below—its
-              contents, the creator, etc. Make it short and sweet, but not too
-              short so folks don&apos;t simply skip over it entirely.
+              Here you can see all the libraries of our users
             </Typography>
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 <Grid item>
-                  <Button variant="contained" color="primary">
-                    Main call to action
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Secondary action
-                  </Button>
+                  <Link
+                    to="/my-library"
+                    style={{ textDecoration: "none", color: "white" }}
+                  >
+                    <Button variant="contained" color="primary">
+                      Create your castom library
+                    </Button>
+                  </Link>
                 </Grid>
               </Grid>
             </div>

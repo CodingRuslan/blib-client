@@ -8,8 +8,6 @@ export default class BlibService {
     try {
       const response = await axios.get(`${_apiBase}/library/showone/${libId}`);
       return response.data;
-
-      return products;
     } catch (error) {
       console.error(error);
     }
@@ -28,14 +26,6 @@ export default class BlibService {
         console.log(error);
       });
     return res;
-    return [
-      {
-        userid: 7,
-        username: "semen5",
-        pass: "5",
-        libiduserside: 259250
-      }
-    ];
   };
 
   registration = async (username, pass) => {
@@ -113,71 +103,3 @@ export default class BlibService {
     return res;
   };
 }
-
-const products = [
-  {
-    productId: 1,
-    libId: 1,
-    title: "Banana",
-    description: "It's very tasty banana",
-    price: 12,
-    stars: 4.75,
-    parent: "main",
-    fridge: true,
-    tag1: "",
-    tag2: "",
-    tag3: ""
-  },
-  {
-    productId: 2,
-    libId: 1,
-    title: "Potato",
-    description: "It's very tasty banana",
-    price: 12,
-    stars: 4.75,
-    parent: "main",
-    fridge: false,
-    tag1: "",
-    tag2: "",
-    tag3: ""
-  },
-  {
-    productId: 3,
-    libId: 1,
-    title: "Tomato",
-    description: "It's very tasty banana",
-    price: 12,
-    stars: 4.75,
-    parent: "main",
-    fridge: false,
-    tag1: "",
-    tag2: "",
-    tag3: ""
-  },
-  {
-    productId: 4,
-    libId: 1,
-    title: "Tomato",
-    description: "It's very tasty banana",
-    price: 12,
-    stars: 4.75,
-    parent: "main",
-    fridge: true,
-    tag1: "",
-    tag2: "",
-    tag3: ""
-  },
-  {
-    productId: 5,
-    libId: 1,
-    title: "yellow banana",
-    description: "It's very tasty banana",
-    price: 12,
-    stars: 4.75,
-    parent: "Banana",
-    fridge: true,
-    tag1: "",
-    tag2: "",
-    tag3: ""
-  }
-];

@@ -1,7 +1,7 @@
 import React from "react";
 import "./app.css";
 import { Route, Switch, Redirect } from "react-router-dom";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import Footer from "../footer";
 import Header from "../header";
 import { HomePage, LoginPage, RegisterPage, LibraryPage } from "../pages";
@@ -11,22 +11,12 @@ const App = ({ isAuth, messageForModalWindow }) => {
     <div className="main">
       <Header />
       <Switch>
-        <Route
-          exact
-          path="/"
-          render={() =>
-              isAuth ? (
-              <Route path="/" component={HomePage} exact />
-            ) : (
-              <Redirect to="/login" />
-            )
-          }
-        />
+        <Route path="/" component={HomePage} exact />
         <Route
           exact
           path="/my-library"
           render={() =>
-              isAuth ? (
+            isAuth ? (
               <Route path="/my-library" component={LibraryPage} />
             ) : (
               <Redirect to="/login" />
@@ -42,7 +32,9 @@ const App = ({ isAuth, messageForModalWindow }) => {
   );
 };
 
-const mapStateToProps = ({ isAuth, messageForModalWindow }) => (
-    { isAuth, messageForModalWindow });
+const mapStateToProps = ({ isAuth, messageForModalWindow }) => ({
+  isAuth,
+  messageForModalWindow
+});
 
 export default connect(mapStateToProps)(App);

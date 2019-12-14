@@ -55,6 +55,8 @@ class ProductList extends Component {
         clearInterval(timerId);
       }, 1100);
     }
+    console.log("state = ", this.state);
+    console.log("products = ", this.props.products);
   }
 
   render() {
@@ -94,7 +96,7 @@ class ProductList extends Component {
                 style={{ margin: "116px" }}
                 onClick={() => {
                   addProductToLib(libId, currentParentPage);
-                  this.setState({ shouldUpdate: true });
+                  this.setState({ ...this.state, shouldUpdate: true });
                 }}
               >
                 <Fab color="primary">
