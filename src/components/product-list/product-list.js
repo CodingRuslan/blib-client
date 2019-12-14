@@ -24,17 +24,13 @@ class ProductList extends Component {
   };
 
   componentDidMount() {
-    const {
-      fetchProducts,
-      changeParentPage,
-      libId
-    } = this.props;
+    const { fetchProducts, changeParentPage, libId } = this.props;
     fetchProducts(libId);
     changeParentPage("main", "main");
-
+  }
 
   componentDidUpdate(prevProps, prevState) {
-    const { currentPage, fetchProducts, libId } = this.props;
+    const { fetchProducts, libId } = this.props;
     if (this.state.shouldUpdate) {
       this.setState({ ...this.state, shouldUpdate: false });
       let timerId = setInterval(() => fetchProducts(libId), 1000);
@@ -43,9 +39,6 @@ class ProductList extends Component {
         clearInterval(timerId);
       }, 1100);
     }
-    console.log("currentPage = ", this.props.currentPage);
-    console.log("prevPage = ", this.props.prevPage);
-    console.log("----------------------------------");
   }
 
   render() {
