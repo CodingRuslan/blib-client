@@ -2,9 +2,9 @@ import BlibService from "../services/blib-service";
 
 const blibServise = new BlibService();
 
-export const changeParentPage = currentPage => ({
+export const changeParentPage = (...args) => ({
   type: "CHANGE_CURRENT_PARENT_PAGE",
-  payload: currentPage
+  payload: args
 });
 
 const changeProduct = () => ({

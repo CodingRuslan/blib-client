@@ -69,6 +69,7 @@ class ProductListItem extends Component {
       price,
       fridge,
       stars,
+      parent,
       productid,
       libid
     } = product; // productId, libId,title,description, fridge, price,stars,parent, tag1,tag2, tag3
@@ -110,7 +111,7 @@ class ProductListItem extends Component {
               <Button
                 size="small"
                 color="primary"
-                onClick={() => changeParentPage(title)}
+                onClick={() => changeParentPage(title, parent)}
               >
                 View
               </Button>

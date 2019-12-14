@@ -20,33 +20,21 @@ import "./product-list.css";
 
 class ProductList extends Component {
   state = {
-    currentPage: "",
-    prevPage: "",
     shouldUpdate: false
   };
 
   componentDidMount() {
     const {
       fetchProducts,
-      currentParentPage,
       changeParentPage,
       libId
     } = this.props;
     fetchProducts(libId);
-    changeParentPage("main");
-    this.setState({
-      currentPage: currentParentPage
-    });
-  }
+    changeParentPage("main", "main");
+
 
   componentDidUpdate(prevProps, prevState) {
-    const { currentParentPage, fetchProducts, libId } = this.props;
-    if (prevProps !== this.props) {
-      this.setState({
-        currentPage: currentParentPage,
-        prevPage: prevProps.currentParentPage
-      });
-    }
+    const { currentPage, fetchProducts, libId } = this.props;
     if (this.state.shouldUpdate) {
       this.setState({ ...this.state, shouldUpdate: false });
       let timerId = setInterval(() => fetchProducts(libId), 1000);
@@ -55,8 +43,9 @@ class ProductList extends Component {
         clearInterval(timerId);
       }, 1100);
     }
-    console.log("state = ", this.state);
-    console.log("products = ", this.props.products);
+    console.log("currentPage = ", this.props.currentPage);
+    console.log("prevPage = ", this.props.prevPage);
+    console.log("----------------------------------");
   }
 
   render() {
@@ -66,7 +55,8 @@ class ProductList extends Component {
       loading,
       error,
       changeParentPage,
-      currentParentPage,
+      currentPage,
+      prevPage,
       addProductToLib
     } = this.props;
 
@@ -82,7 +72,14 @@ class ProductList extends Component {
         <Button
           className="btn-back"
           style={{ position: "absolute" }}
-          onClick={() => changeParentPage(this.state.prevPage)}
+          onClick={() => {
+            changeParentPage(
+              prevPage,
+              !!products.find(item => item.title === prevPage)
+                ? products.find(item => item.title === prevPage).parent
+                : "main"
+            );
+          }}
         >
           Back
         </Button>
@@ -95,7 +92,7 @@ class ProductList extends Component {
                 aria-label="add"
                 style={{ margin: "116px" }}
                 onClick={() => {
-                  addProductToLib(libId, currentParentPage);
+                  addProductToLib(libId, currentPage);
                   this.setState({ ...this.state, shouldUpdate: true });
                 }}
               >
@@ -106,7 +103,7 @@ class ProductList extends Component {
             </Grid>
             {products
               .filter(product => {
-                if (product.parent === this.state.currentPage) {
+                if (product.parent === currentPage) {
                   return product;
                 }
               })
@@ -128,14 +125,16 @@ class ProductList extends Component {
 const mapStateToProps = ({
   products,
   loading,
-  currentParentPage,
+  currentPage,
+  prevPage,
   libId,
   error
 }) => ({
   products,
   libId,
   loading,
-  currentParentPage,
+  currentPage,
+  prevPage,
   error
 });
 

@@ -6,7 +6,8 @@ const initialState = {
   products: [],
   loading: true,
   error: null,
-  currentParentPage: "main",
+  currentPage: "",
+  prevPage: "",
   messageForModalWindow: ""
 };
 
@@ -126,7 +127,8 @@ const reducer = (state = initialState, action) => {
     case "CHANGE_CURRENT_PARENT_PAGE":
       return {
         ...state,
-        currentParentPage: action.payload
+        currentPage: action.payload[0],
+        prevPage: action.payload[1]
       };
 
     case "CHANGE_PRODUCT":
