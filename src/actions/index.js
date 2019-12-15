@@ -11,6 +11,11 @@ const changeProduct = () => ({
   type: "CHANGE_PRODUCT"
 });
 
+const changeLibId = libId => ({
+  type: "CHANGE_LIB_ID",
+  payload: libId
+});
+
 const productsRequested = () => ({
   type: "FETCH_PRODUCTS_REQUEST"
 });
@@ -23,6 +28,15 @@ const productsLoaded = newProducts => ({
 const productsError = error => ({
   type: "FETCH_PRODUCTS_FAILURE",
   payload: error
+});
+
+const usersRequested = () => ({
+  type: "FETCH_USERS_REQUEST"
+});
+
+const usersLoaded = users => ({
+  type: "FETCH_USERS_SUCCESS",
+  payload: users
 });
 
 const registrationUser = data => ({
@@ -114,6 +128,22 @@ const changeProductDispatch = (
     .catch(err => dispatch(loginError(err)));
 };
 
+const changeLibIdDispatch = userName => dispatch => {
+  dispatch(usersRequested());
+  blibServise
+    .getLibIdByUserId(userName)
+    .then(e => dispatch(changeLibId(e)))
+    .catch(err => dispatch(productsError(err)));
+};
+
+const fetchUsers = () => dispatch => {
+  dispatch(usersRequested());
+  blibServise
+    .getAllUsers()
+    .then(e => dispatch(usersLoaded(e)))
+    .catch(err => dispatch(productsError(err)));
+};
+
 const fetchProducts = libId => dispatch => {
   dispatch(productsRequested());
   blibServise
@@ -140,9 +170,11 @@ const removeProductFromLib = (productId, libId) => dispatch => {
 
 export {
   fetchProducts,
+  fetchUsers,
   fetchLogin,
   fetchRegistration,
   changeProductDispatch,
+  changeLibIdDispatch,
   addProductToLib,
   removeProductFromLib
 };

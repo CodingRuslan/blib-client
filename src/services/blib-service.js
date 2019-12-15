@@ -43,6 +43,24 @@ export default class BlibService {
     return res;
   };
 
+  getAllUsers = async () => {
+    try {
+      const response = await axios.get(`${_apiBase}/users`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  getLibIdByUserId = async userName => {
+    try {
+      const response = await axios.get(`${_apiBase}/showlibid/${userName}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   changeProduct = async (
     productid,
     title,

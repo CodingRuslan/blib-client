@@ -23,7 +23,6 @@ const App = ({ isAuth, messageForModalWindow }) => {
             )
           }
         />
-        {/*<Route path="/my-library" component={LibraryPage} exact />*/}
         <Route path="/login" component={LoginPage} />
         <Route path="/registration" component={RegisterPage} />
       </Switch>

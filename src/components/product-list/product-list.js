@@ -26,6 +26,11 @@ class ProductList extends Component {
   componentDidMount() {
     const { fetchProducts, changeParentPage, libId } = this.props;
     fetchProducts(libId);
+    // let timerId = setInterval(() => fetchProducts(libId), 1000);
+
+    // setTimeout(() => {
+    //   clearInterval(timerId);
+    // }, 1010);
     changeParentPage("main", "main");
   }
 

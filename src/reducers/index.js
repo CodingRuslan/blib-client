@@ -4,6 +4,7 @@ const initialState = {
   userId: "",
   libId: "",
   products: [],
+  users: [],
   loading: true,
   error: null,
   currentPage: "",
@@ -32,7 +33,6 @@ const reducer = (state = initialState, action) => {
     case "FETCH_PRODUCTS_REQUEST":
       return {
         ...state,
-        ingredients: [],
         loading: true,
         error: null
       };
@@ -51,6 +51,21 @@ const reducer = (state = initialState, action) => {
         products: [],
         loading: false,
         error: action.payload
+      };
+
+    case "FETCH_USERS_REQUEST":
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+
+    case "FETCH_USERS_SUCCESS":
+      return {
+        ...state,
+        users: action.payload,
+        loading: false,
+        error: null
       };
 
     case "POST_USER_CREATE":
@@ -121,6 +136,14 @@ const reducer = (state = initialState, action) => {
     case "REMOVE_PRODUCT_SUCCESS":
       return {
         ...state,
+        loading: false
+      };
+
+    case "CHANGE_LIB_ID":
+      // localStorage.setItem("libId", action.payload);
+      return {
+        ...state,
+        libId: action.payload,
         loading: false
       };
 
