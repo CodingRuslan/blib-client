@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import LibListItem from "../lib-list-item";
 import { connect } from "react-redux";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import { withBlibService } from "../hoc";
 import { fetchUsers } from "../../actions";
@@ -27,7 +26,7 @@ class LibList extends Component {
     if (error) {
       return <ErrorIndicator />;
     }
-    console.log(users);
+
     return (
       <>
         <Container className="cardGrid" maxWidth="md">

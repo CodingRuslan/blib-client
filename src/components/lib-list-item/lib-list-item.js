@@ -23,8 +23,7 @@ class LibListItem extends Component {
   }
 
   render() {
-    const { userName, userId, changeLibIdDispatch } = this.props;
-    console.log(this.props);
+    const { userName, libId } = this.props; //  changeLibIdDispatch
 
     return (
       <>
@@ -41,11 +40,11 @@ class LibListItem extends Component {
               </Typography>
             </CardContent>
             <CardActions>
-              <Link to="/my-library">
+              <Link to={`/library/${libId}`}>
                 <Button
                   size="small"
                   color="primary"
-                  onClick={() => changeLibIdDispatch(userName)}
+                  // onClick={() => changeLibIdDispatch(userName)}
                 >
                   View
                 </Button>

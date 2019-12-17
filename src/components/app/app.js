@@ -23,6 +23,18 @@ const App = ({ isAuth, messageForModalWindow }) => {
             )
           }
         />
+
+        <Route
+          path="/library/:libId"
+          render={() =>
+            isAuth ? (
+              <Route path="/library/:libId" component={LibraryPage} />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+
         <Route path="/login" component={LoginPage} />
         <Route path="/registration" component={RegisterPage} />
       </Switch>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ProductListItem from "../product-list-item";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
@@ -24,8 +25,10 @@ class ProductList extends Component {
   };
 
   componentDidMount() {
-    const { fetchProducts, changeParentPage, libId } = this.props;
-    fetchProducts(libId);
+    const { fetchProducts, changeParentPage, libId, match } = this.props;
+    const { params } = match;
+    !!params.libId ? fetchProducts(params.libId) : fetchProducts(libId);
+
     // let timerId = setInterval(() => fetchProducts(libId), 1000);
 
     // setTimeout(() => {
@@ -137,6 +140,7 @@ const mapStateToProps = ({
 });
 
 export default compose(
+  withRouter,
   withBlibService(),
   connect(mapStateToProps, { fetchProducts, changeParentPage, addProductToLib })
 )(ProductList);
