@@ -4,7 +4,13 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Footer from "../footer";
 import Header from "../header";
-import { HomePage, LoginPage, RegisterPage, LibraryPage } from "../pages";
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  LibraryPage,
+  RefrigeratorPage
+} from "../pages";
 
 const App = ({ isAuth, messageForModalWindow }) => {
   return (
@@ -29,6 +35,18 @@ const App = ({ isAuth, messageForModalWindow }) => {
           render={() =>
             isAuth ? (
               <Route path="/library/:libId" component={LibraryPage} />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path="/refrigerator"
+          render={() =>
+            isAuth ? (
+              <Route path="/refrigerator" component={RefrigeratorPage} />
             ) : (
               <Redirect to="/login" />
             )

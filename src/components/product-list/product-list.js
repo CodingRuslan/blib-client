@@ -32,7 +32,7 @@ class ProductList extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { fetchProducts, libId, match } = this.props;
+    const { fetchProducts, libId } = this.props;
 
     if (this.state.shouldUpdate) {
       this.setState({ ...this.state, shouldUpdate: false });
@@ -108,6 +108,7 @@ class ProductList extends Component {
                   key={product.productId}
                   product={product}
                   libId={libId}
+                  paramsLibId={this.props.match.params.libId}
                   // shouldUpdate={this.state.shouldUpdate}
                 />
               ))}

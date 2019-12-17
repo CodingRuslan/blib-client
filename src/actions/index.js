@@ -30,6 +30,23 @@ const productsError = error => ({
   payload: error
 });
 
+const frigeRequested = () => ({
+  type: "FETCH_FRIGE_REQUEST"
+});
+
+const frigeLoaded = newFrige => ({
+  type: "FETCH_FRIGE_SUCCESS",
+  payload: newFrige
+});
+
+const removeFrigeRequest = () => ({
+  type: "REMOVE_FRIGE_REQUEST"
+});
+
+const frigeRemoved = () => ({
+  type: "REMOVE_FRIGE_SUCCESS"
+});
+
 const usersRequested = () => ({
   type: "FETCH_USERS_REQUEST"
 });
@@ -152,6 +169,22 @@ const fetchProducts = libId => dispatch => {
     .catch(err => dispatch(productsError(err)));
 };
 
+const fetchFrige = libId => dispatch => {
+  dispatch(frigeRequested());
+  blibServise
+    .getFrige(libId)
+    .then(e => dispatch(frigeLoaded(e)))
+    .catch(err => dispatch(productsError(err)));
+};
+
+const removeProductFromFrigeDispatch = productId => dispatch => {
+  dispatch(removeFrigeRequest());
+  blibServise
+    .removeProductfromFrige(productId)
+    .then(dispatch(frigeRemoved()))
+    .catch(err => dispatch(productsError(err)));
+};
+
 const addProductToLib = (libId, parent) => dispatch => {
   dispatch(addProductRequest());
   blibServise
@@ -173,6 +206,8 @@ export {
   fetchUsers,
   fetchLogin,
   fetchRegistration,
+  fetchFrige,
+  removeProductFromFrigeDispatch,
   changeProductDispatch,
   changeLibIdDispatch,
   addProductToLib,

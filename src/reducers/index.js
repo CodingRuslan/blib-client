@@ -5,6 +5,7 @@ const initialState = {
   libId: "",
   products: [],
   users: [],
+  frige: [],
   loading: true,
   error: null,
   currentPage: "",
@@ -51,6 +52,33 @@ const reducer = (state = initialState, action) => {
         products: [],
         loading: false,
         error: action.payload
+      };
+
+    case "FETCH_FRIGE_REQUEST":
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+
+    case "REMOVE_FRIGE_REQUEST":
+      return {
+        ...state,
+        loading: true
+      };
+
+    case "REMOVE_FRIGE_SUCCESS":
+      return {
+        ...state,
+        loading: false
+      };
+
+    case "FETCH_FRIGE_SUCCESS":
+      return {
+        ...state,
+        frige: action.payload,
+        loading: false,
+        error: null
       };
 
     case "FETCH_USERS_REQUEST":

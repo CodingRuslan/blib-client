@@ -27,12 +27,21 @@ class ProductListItem extends Component {
 
     this.state = {
       openEditWindow: false,
-      shouldUpdate: false
+      shouldUpdate: false,
+      isEdit: true
     };
   }
 
+  componentDidMount() {
+    const { libId, paramsLibId } = this.props;
+    if (libId !== paramsLibId && !!paramsLibId) {
+      this.setState({ isEdit: false });
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    const { fetchProducts, libId } = this.props;
+    const { fetchProducts, libId, paramsLibId } = this.props;
+
     if (this.state.shouldUpdate) {
       this.setState({ ...this.state, shouldUpdate: false });
       let timerId = setInterval(() => fetchProducts(libId), 1000);
@@ -115,25 +124,34 @@ class ProductListItem extends Component {
               >
                 View
               </Button>
-              <Button
-                size="small"
-                color="primary"
-                onClick={this.handleEditOpen}
-              >
-                Edit
-              </Button>
-              <IconButton
-                aria-label="delete"
-                className="btn-delete"
-                size="small"
-                style={{ marginLeft: "35%" }}
-                onClick={() => {
-                  removeProductFromLib(productid, libid);
-                  this.setState({ shouldUpdate: true });
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
+              {this.state.isEdit ? (
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={this.handleEditOpen}
+                >
+                  Edit
+                </Button>
+              ) : (
+                ""
+              )}
+
+              {this.state.isEdit ? (
+                <IconButton
+                  aria-label="delete"
+                  className="btn-delete"
+                  size="small"
+                  style={{ marginLeft: "35%" }}
+                  onClick={() => {
+                    removeProductFromLib(productid, libid);
+                    this.setState({ shouldUpdate: true });
+                  }}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              ) : (
+                ""
+              )}
             </CardActions>
           </Card>
         </Grid>

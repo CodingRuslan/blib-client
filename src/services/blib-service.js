@@ -52,6 +52,30 @@ export default class BlibService {
     }
   };
 
+  getFrige = async libId => {
+    try {
+      const response = await axios.get(`${_apiBase}/fridge/show/${libId}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  removeProductfromFrige = async productId => {
+    console.log(productId);
+    const res = await axios
+      .post(`${_apiBase}/fridge/delete`, {
+        productid: productId
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
+
   getLibIdByUserId = async userName => {
     try {
       const response = await axios.get(`${_apiBase}/showlibid/${userName}`);
