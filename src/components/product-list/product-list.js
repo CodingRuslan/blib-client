@@ -28,17 +28,12 @@ class ProductList extends Component {
     const { fetchProducts, changeParentPage, libId, match } = this.props;
     const { params } = match;
     !!params.libId ? fetchProducts(params.libId) : fetchProducts(libId);
-
-    // let timerId = setInterval(() => fetchProducts(libId), 1000);
-
-    // setTimeout(() => {
-    //   clearInterval(timerId);
-    // }, 1010);
     changeParentPage("main", "main");
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { fetchProducts, libId } = this.props;
+    const { fetchProducts, libId, match } = this.props;
+
     if (this.state.shouldUpdate) {
       this.setState({ ...this.state, shouldUpdate: false });
       let timerId = setInterval(() => fetchProducts(libId), 1000);

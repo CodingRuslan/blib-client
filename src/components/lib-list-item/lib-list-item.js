@@ -36,7 +36,7 @@ class LibListItem extends Component {
             />
             <CardContent className="cardContent">
               <Typography gutterBottom variant="h5" component="h2">
-                {userName}
+                Library by <i>{userName}</i>
               </Typography>
             </CardContent>
             <CardActions>

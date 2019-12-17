@@ -10,7 +10,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import "./header.css";
 
-import { checkAuthenticationFromLocalStorage, logOut } from "../../actions";
+import {
+  checkAuthenticationFromLocalStorage,
+  logOut,
+  fetchProducts
+} from "../../actions";
 
 const RegLogBar = () => (
   <>
@@ -43,7 +47,7 @@ class Header extends Component {
   }
 
   render() {
-    const { isAuth, logOut } = this.props;
+    const { isAuth, logOut, fetchProducts, libId } = this.props;
     console.log(this.props);
     return (
       <AppBar position="static">
@@ -63,7 +67,11 @@ class Header extends Component {
             </Link>
           </Typography>
 
-          <Typography variant="h5" className="title">
+          <Typography
+            variant="h5"
+            className="title"
+            onClick={() => fetchProducts(libId)}
+          >
             <Link
               to="/my-library"
               style={{ textDecoration: "none", color: "white" }}
@@ -79,9 +87,14 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({ loginName, isAuth }) => ({ loginName, isAuth });
+const mapStateToProps = ({ loginName, isAuth, libId }) => ({
+  loginName,
+  isAuth,
+  libId
+});
 const mapDispatchToProps = {
   logOut,
-  checkAuthenticationFromLocalStorage
+  checkAuthenticationFromLocalStorage,
+  fetchProducts
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
