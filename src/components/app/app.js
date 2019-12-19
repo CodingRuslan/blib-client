@@ -9,7 +9,8 @@ import {
   LoginPage,
   RegisterPage,
   LibraryPage,
-  RefrigeratorPage
+  RefrigeratorPage,
+  RecipesPage
 } from "../pages";
 
 const App = ({ isAuth, messageForModalWindow }) => {
@@ -47,6 +48,18 @@ const App = ({ isAuth, messageForModalWindow }) => {
           render={() =>
             isAuth ? (
               <Route path="/refrigerator" component={RefrigeratorPage} />
+            ) : (
+              <Redirect to="/login" />
+            )
+          }
+        />
+
+        <Route
+          exact
+          path="/recipes"
+          render={() =>
+            isAuth ? (
+              <Route path="/recipes" component={RecipesPage} />
             ) : (
               <Redirect to="/login" />
             )

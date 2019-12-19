@@ -94,6 +94,7 @@ export default class BlibService {
     parent,
     fridge
   ) => {
+    console.log(productid, "changed");
     const res = await axios
       .post(`${_apiBase}/product/edit`, {
         productid: productid,

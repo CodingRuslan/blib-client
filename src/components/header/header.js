@@ -58,7 +58,7 @@ const sideList = () => (
           <ListItemText primary={"refrigerator"} />
         </ListItem>
       </Link>
-      <Link to="#" style={{ textDecoration: "none" }}>
+      <Link to="/recipes" style={{ textDecoration: "none" }}>
         <ListItem button>
           <ListItemIcon>
             <MailIcon />

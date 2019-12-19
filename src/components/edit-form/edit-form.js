@@ -26,6 +26,7 @@ class EditForm extends Component {
 
   componentDidMount() {
     const { product } = this.props;
+    console.log(product);
     this.setState({
       ...this.state,
       title: product.title,
@@ -37,7 +38,18 @@ class EditForm extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { fetchProducts, libId } = this.props;
+    const { fetchProducts, libId, product } = this.props;
+    if (prevProps !== this.props) {
+      this.setState({
+        ...this.state,
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        fridge: product.fridge,
+        stars: product.stars
+      });
+    }
+
     if (this.state.shouldUpdate) {
       this.setState({ ...this.state, shouldUpdate: false });
       let timerId = setInterval(() => fetchProducts(libId), 1000);

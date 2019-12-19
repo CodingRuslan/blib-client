@@ -120,7 +120,9 @@ class ProductListItem extends Component {
               <Button
                 size="small"
                 color="primary"
-                onClick={() => changeParentPage(title, parent)}
+                onClick={() => {
+                  changeParentPage(title, parent);
+                }}
               >
                 View
               </Button>
