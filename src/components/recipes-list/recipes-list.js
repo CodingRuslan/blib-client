@@ -34,7 +34,11 @@ class RecipesList extends Component {
 
   render() {
     const { frige, removeProductFromFrigeDispatch } = this.props;
-    return <div className="root" style={{ marginBottom: "400px" }}></div>;
+    return (
+      <div className="root" style={{ marginBottom: "400px" }}>
+        <RecipeListItem />
+      </div>
+    );
   }
 }
 

@@ -26,7 +26,6 @@ class EditForm extends Component {
 
   componentDidMount() {
     const { product } = this.props;
-    console.log(product);
     this.setState({
       ...this.state,
       title: product.title,

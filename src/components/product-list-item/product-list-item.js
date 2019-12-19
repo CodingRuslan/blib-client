@@ -98,6 +98,9 @@ class ProductListItem extends Component {
               className="cardMedia"
               image="https://source.unsplash.com/random"
               title="Image title"
+              onClick={() => {
+                changeParentPage(title, parent);
+              }}
             />
             <CardContent className="cardContent">
               <Typography gutterBottom variant="h5" component="h2">
