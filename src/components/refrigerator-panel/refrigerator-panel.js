@@ -18,9 +18,26 @@ import Spinner from "../spinner";
 import "./refrigerator-panel.css";
 
 class RefrigeratorPanel extends Component {
+  state = {
+    componentShouldUpdate: false
+  };
+
   componentDidMount() {
     const { fetchFrige, libId } = this.props;
     fetchFrige(libId);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { fetchFrige, libId } = this.props;
+
+    if (this.state.componentShouldUpdate) {
+      this.setState({ componentShouldUpdate: false });
+      let timerId = setInterval(() => fetchFrige(libId), 1000);
+
+      setTimeout(() => {
+        clearInterval(timerId);
+      }, 1100);
+    }
   }
 
   render() {
@@ -34,7 +51,7 @@ class RefrigeratorPanel extends Component {
             id="panel1c-header"
           >
             <div className="column">
-              <Typography className="heading">Location</Typography>
+              <Typography className="heading">My frige</Typography>
             </div>
             <div className="column">
               <Typography className="secondaryHeading">
@@ -51,9 +68,10 @@ class RefrigeratorPanel extends Component {
                   <>
                     <Chip
                       label={e.title}
-                      onDelete={() =>
-                        removeProductFromFrigeDispatch(e.productid)
-                      }
+                      onDelete={() => {
+                        removeProductFromFrigeDispatch(e.productid);
+                        this.setState({ componentShouldUpdate: true });
+                      }}
                       style={{ marginBottom: "5px" }}
                     />
                     <br />
@@ -68,12 +86,6 @@ class RefrigeratorPanel extends Component {
             </div>
           </ExpansionPanelDetails>
           <Divider />
-          <ExpansionPanelActions>
-            <Button size="small">Cancel</Button>
-            <Button size="small" color="primary">
-              Save
-            </Button>
-          </ExpansionPanelActions>
         </ExpansionPanel>
       </div>
     );
