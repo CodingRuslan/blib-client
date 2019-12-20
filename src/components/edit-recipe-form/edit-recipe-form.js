@@ -79,7 +79,7 @@ class EditRecipeForm extends Component {
               id="outlined-multiline-flexible"
               label="Discription"
               multiline
-              rowsMax="4"
+              // rowsMax="4"
               value={this.state.description}
               onChange={e => this.setState({ description: e.target.value })}
               variant="outlined"

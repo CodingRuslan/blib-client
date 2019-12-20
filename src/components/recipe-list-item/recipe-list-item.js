@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,6 +13,7 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { withBlibService } from "../hoc";
 import EditRecipeForm from "../edit-recipe-form";
+import "./recipe-list-item.css";
 
 class RecipeListItem extends Component {
   state = {
@@ -78,7 +77,9 @@ class RecipeListItem extends Component {
               <Typography variant="h5">{recipe.recipename}</Typography>
             </div>
             <div className="column">
-              <Typography variant="p">{recipe.description}</Typography>
+              <Typography variant="p" className="description">
+                {recipe.description}
+              </Typography>
             </div>
             <div className="column">
               <Button

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { withBlibService } from "../hoc";
 import { connect } from "react-redux";
 import { compose } from "redux";
-// import { Redirect } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 import { fetchLogin, fetchRegistration } from "../../actions";
 import { Redirect } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
@@ -97,6 +97,7 @@ class LoginForm extends Component {
                       this.state.login,
                       this.state.password
                     );
+                    this.props.history.push("/login");
                   }
                 }
               }}
@@ -132,6 +133,7 @@ const mapStateToProps = ({ isAuth, loginName }) => {
 };
 
 export default compose(
+  withRouter,
   withBlibService(),
   connect(mapStateToProps, { fetchLogin, fetchRegistration })
 )(LoginForm);
