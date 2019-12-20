@@ -1,57 +1,76 @@
 import React, { Component } from "react";
-
+import Grid from "@material-ui/core/Grid";
 import { withBlibService } from "../hoc";
-import { fetchFrige, removeProductFromFrigeDispatch } from "../../actions";
+import { fetchRecipes, addRecipe } from "../../actions";
 import { connect } from "react-redux";
 import { compose } from "redux";
+import Button from "@material-ui/core/Button";
 
 import RecipeListItem from "../recipe-list-item";
 
 import "./recipes-list.css";
 
 class RecipesList extends Component {
-  // state = {
-  //     componentShouldUpdate: false
-  // };
-  //
-  // componentDidMount() {
-  //     const { fetchFrige, libId } = this.props;
-  //     fetchFrige(libId);
-  // }
-  //
-  // componentDidUpdate(prevProps, prevState) {
-  //     const { fetchFrige, libId } = this.props;
-  //
-  //     if (this.state.componentShouldUpdate) {
-  //         this.setState({ componentShouldUpdate: false });
-  //         let timerId = setInterval(() => fetchFrige(libId), 1000);
-  //
-  //         setTimeout(() => {
-  //             clearInterval(timerId);
-  //         }, 1100);
-  //     }
-  // }
+  state = {
+    recipeId: "",
+    recipeName: "",
+    description: "",
+    componentShouldUpdate: false
+  };
+
+  componentDidMount() {
+    const { fetchRecipes, userId } = this.props;
+    fetchRecipes(userId);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { recipes, fetchRecipes, userId } = this.props;
+
+    if (this.state.componentShouldUpdate) {
+      this.setState({ componentShouldUpdate: false });
+      let timerId = setInterval(() => fetchRecipes(userId), 1000);
+
+      setTimeout(() => {
+        clearInterval(timerId);
+      }, 1100);
+    }
+  }
 
   render() {
-    const { frige, removeProductFromFrigeDispatch } = this.props;
+    const { userId, products, addRecipe, recipes } = this.props;
+
     return (
       <div className="root" style={{ marginBottom: "400px" }}>
-        <RecipeListItem />
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={12}>
+            {recipes.map(recipe => {
+              return <RecipeListItem recipe={recipe} userId={userId} />;
+            })}
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                addRecipe(userId);
+                this.setState({ componentShouldUpdate: true });
+              }}
+            >
+              Add Recipe
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ frige, loading, libId, error }) => ({
-  frige,
-  loading,
+const mapStateToProps = ({ recipes, libId, userId, products }) => ({
+  recipes,
   libId,
-  error
+  userId,
+  products
 });
 
-// export default compose(
-//   withBlibService(),
-//   connect(mapStateToProps, { fetchFrige, removeProductFromFrigeDispatch })
-// )(RecipesList);
-
-export default RecipesList;
+export default compose(
+  withBlibService(),
+  connect(mapStateToProps, { fetchRecipes, addRecipe })
+)(RecipesList);

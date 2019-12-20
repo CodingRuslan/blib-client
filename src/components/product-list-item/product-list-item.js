@@ -60,6 +60,7 @@ class ProductListItem extends Component {
   };
 
   handleEditClose = () => {
+    console.log("close");
     this.setState({
       openEditWindow: false
     });

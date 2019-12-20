@@ -55,7 +55,7 @@ class ProductList extends Component {
       prevPage,
       addProductToLib
     } = this.props;
-
+    console.log(products);
     if (loading) {
       return <Spinner />;
     }

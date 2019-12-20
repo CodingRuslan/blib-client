@@ -61,8 +61,63 @@ export default class BlibService {
     }
   };
 
+  getRecipesByUserId = async userId => {
+    try {
+      const response = await axios.get(`${_apiBase}/recipe/show/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  addRecipe = async userId => {
+    const res = await axios
+      .post(`${_apiBase}/recipe/add`, {
+        userid: userId,
+        recipename: "",
+        description: ""
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
+
+  removeRecipe = async recipeId => {
+    const res = await axios
+      .post(`${_apiBase}/recipe/delete`, {
+        recipeid: recipeId
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
+
+  changeRecipe = async (recipeId, recipeName, description) => {
+    console.log(recipeId, recipeName, description);
+    const res = await axios
+      .post(`${_apiBase}/recipe/edit`, {
+        recipeid: recipeId,
+        recipename: recipeName,
+        description: description
+      })
+      .then(function(response) {
+        return response;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    return res;
+  };
+
   removeProductfromFrige = async productId => {
-    console.log(productId);
     const res = await axios
       .post(`${_apiBase}/fridge/delete`, {
         productid: productId

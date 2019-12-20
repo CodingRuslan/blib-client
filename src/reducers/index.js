@@ -6,6 +6,7 @@ const initialState = {
   products: [],
   users: [],
   frige: [],
+  recipes: [],
   loading: true,
   error: null,
   currentPage: "",
@@ -77,6 +78,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         frige: action.payload,
+        loading: false,
+        error: null
+      };
+
+    case "FETCH_RECIPE_REQUEST":
+      return {
+        ...state,
+        loading: true,
+        error: null
+      };
+
+    case "FETCH_RECIPE_SUCCESS":
+      return {
+        ...state,
+        recipes: action.payload,
         loading: false,
         error: null
       };

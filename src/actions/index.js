@@ -47,6 +47,27 @@ const frigeRemoved = () => ({
   type: "REMOVE_FRIGE_SUCCESS"
 });
 
+const recipesRequested = () => ({
+  type: "FETCH_RECIPE_REQUEST"
+});
+
+const recipesLoaded = newRecipes => ({
+  type: "FETCH_RECIPE_SUCCESS",
+  payload: newRecipes
+});
+
+const recipeAdded = () => ({
+  type: "ADD_RECIPE_SUCCESS"
+});
+
+const recipeRemoved = () => ({
+  type: "REMOVE_RECIPE_SUCCESS"
+});
+
+const recipeChanged = () => ({
+  type: "CHANGE_RECIPE_SUCCESS"
+});
+
 const usersRequested = () => ({
   type: "FETCH_USERS_REQUEST"
 });
@@ -177,8 +198,40 @@ const fetchFrige = libId => dispatch => {
     .catch(err => dispatch(productsError(err)));
 };
 
+const fetchRecipes = userId => dispatch => {
+  dispatch(recipesRequested());
+  blibServise
+    .getRecipesByUserId(userId)
+    .then(e => dispatch(recipesLoaded(e)))
+    .catch(err => dispatch(productsError(err)));
+};
+
+const addRecipe = userId => dispatch => {
+  blibServise
+    .addRecipe(userId)
+    .then(dispatch(productsAdded()))
+    .catch(err => dispatch(productsError(err)));
+};
+
+const removeRecipe = recipeId => dispatch => {
+  blibServise
+    .removeRecipe(recipeId)
+    .then(dispatch(recipeRemoved()))
+    .catch(err => dispatch(productsError(err)));
+};
+
+const changeRecipeDispatch = (
+  recipeId,
+  recipeName,
+  description
+) => dispatch => {
+  blibServise
+    .changeRecipe(recipeId, recipeName, description)
+    .then(dispatch(recipeChanged()))
+    .catch(err => dispatch(productsError(err)));
+};
+
 const removeProductFromFrigeDispatch = productId => dispatch => {
-  dispatch(removeFrigeRequest());
   blibServise
     .removeProductfromFrige(productId)
     .then(dispatch(frigeRemoved()))
@@ -211,5 +264,9 @@ export {
   changeProductDispatch,
   changeLibIdDispatch,
   addProductToLib,
-  removeProductFromLib
+  removeProductFromLib,
+  fetchRecipes,
+  addRecipe,
+  removeRecipe,
+  changeRecipeDispatch
 };

@@ -37,7 +37,6 @@ const RegLogBar = () => (
 
 const LogOutBar = ({ logOut }) => (
   <IconButton
-    // edge="start"
     onClick={() => logOut()}
     className="logOutButton"
     color="inherit"
@@ -82,7 +81,6 @@ class Header extends Component {
 
   render() {
     const { isAuth, logOut, fetchProducts, libId } = this.props;
-    console.log(this.props);
     return (
       <AppBar position="static">
         <Toolbar>
